@@ -1,7 +1,7 @@
 import Image from "next/image";
 import CategoryCard from "./components/CategoryCard";
 import Link from "next/link";
-import hero from '@/public/assets/home/mobile/image-header.jpg'
+import hero from '@/public/assets/home/desktop/image-hero.jpg'
 
 export default function Home() {
   return (
