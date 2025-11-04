@@ -292,6 +292,7 @@ export default function Index() {
                                     placeholder="Alexei Ward"
                                     value={formData.name}
                                     onChange={handleInputChange.bind(null, 'name')}
+                                    onBlur={() => handleBlur('name')}
                                     error={touched.name ? errors.name : ''}
                                 />
                                 <FormInput
@@ -299,6 +300,7 @@ export default function Index() {
                                     placeholder="alexei@mail.com"
                                     value={formData.email}
                                     onChange={handleInputChange.bind(null, 'email')}
+                                    onBlur={() => handleBlur('email')}
                                     error={touched.email ? errors.email : ''}
                                 />
                                 <FormInput
@@ -306,6 +308,7 @@ export default function Index() {
                                     placeholder="+1 202-555-0136"
                                     value={formData.phone}
                                     onChange={handleInputChange.bind(null, 'phone')}
+                                    onBlur={() => handleBlur('phone')}
                                     error={touched.phone ? errors.phone : ''}
                                 />
                             </div>
@@ -323,6 +326,7 @@ export default function Index() {
                                     fullWidth
                                     value={formData.address}
                                     onChange={handleInputChange.bind(null, 'address')}
+                                    onBlur={() => handleBlur('address')}
                                     error={touched.address ? errors.address : ''}
                                 />
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -331,6 +335,7 @@ export default function Index() {
                                         placeholder="10001"
                                         value={formData.zipCode}
                                         onChange={handleInputChange.bind(null, 'zipCode')}
+                                        onBlur={() => handleBlur('zipCode')}
                                         error={touched.zipCode ? errors.zipCode : ''}
                                     />
                                     <FormInput
@@ -338,6 +343,7 @@ export default function Index() {
                                         placeholder="New York"
                                         value={formData.city}
                                         onChange={handleInputChange.bind(null, 'city')}
+                                        onBlur={() => handleBlur('city')}
                                         error={touched.city ? errors.city : ''}
                                     />
                                 </div>
@@ -346,6 +352,7 @@ export default function Index() {
                                     placeholder="United States"
                                     value={formData.country}
                                     onChange={handleInputChange.bind(null, 'country')}
+                                    onBlur={() => handleBlur('country')}
                                     error={touched.country ? errors.country : ''}
                                 />
                             </div>
@@ -383,6 +390,7 @@ export default function Index() {
                                         placeholder="238521993"
                                         value={formData.eMoneyNumber}
                                         onChange={handleInputChange.bind(null, 'eMoneyNumber')}
+                                        onBlur={() => handleBlur('eMoneyNumber')}
                                         error={touched.eMoneyNumber ? errors.eMoneyNumber : ''}
                                     />
                                     <FormInput
@@ -390,6 +398,7 @@ export default function Index() {
                                         placeholder="6891"
                                         value={formData.eMoneyPin}
                                         onChange={handleInputChange.bind(null, 'eMoneyPin')}
+                                        onBlur={() => handleBlur('eMoneyPin')}
                                         error={touched.eMoneyPin ? errors.eMoneyPin : ''}
                                     />
                                 </div>

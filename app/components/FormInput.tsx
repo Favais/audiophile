@@ -4,6 +4,7 @@ interface FormInputProps {
     fullWidth?: boolean;
     value: string;
     onChange: (value: string) => void;
+    onBlur?: () => void;
     error: string | null;
 }
 export default function FormInput({
@@ -12,6 +13,7 @@ export default function FormInput({
     fullWidth = false,
     value,
     onChange,
+    onBlur,
     error
 }: FormInputProps) {
     const id = label.toLowerCase().replace(/[^a-z0-9]+/g, '-');
@@ -30,6 +32,7 @@ export default function FormInput({
                 className="w-full h-[56px] px-6 rounded-lg border border-checkout-border bg-white text-[14px] font-bold tracking-[-0.25px] placeholder:text-black placeholder:opacity-40 focus:outline-none focus:border-checkout-orange"
                 value={value}
                 onChange={(e) => onChange(e.target.value)}
+                onBlur={onBlur}
             />
             <p id={`${id}-error`} role="alert" aria-live="assertive" className="text-red-500 text-xs mt-1">
                 {error}
