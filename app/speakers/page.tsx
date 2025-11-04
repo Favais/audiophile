@@ -3,7 +3,6 @@ import About from '../components/About'
 import CategoryCard from '../components/CategoryCard'
 import Title from '../components/Title'
 import data from '@/public/assets/db.json'
-import { log } from 'console'
 import Link from 'next/link'
 import Image from 'next/image'
 
@@ -11,7 +10,6 @@ const page = () => {
     const speakers = data.data.filter(
         (product) => product.category === 'speakers'
     );
-    log(speakers);
     return (
         <div>
             <Title title='Speakers' />

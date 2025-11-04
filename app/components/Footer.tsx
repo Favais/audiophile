@@ -10,11 +10,12 @@ export default function Footer() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:flex lg:justify-between gap-8 lg:gap-0 pb-12">
                     <div className="lg:w-auto">
                         <svg
-                            width="143"
-                            height="25"
+                            className="w-28 md:w-36 lg:w-48 h-auto"
                             viewBox="0 0 143 25"
                             fill="none"
                             xmlns="http://www.w3.org/2000/svg"
+                            role="img"
+                            aria-hidden="true"
                         >
                             <path
                                 fillRule="evenodd"

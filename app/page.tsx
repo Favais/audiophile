@@ -1,11 +1,12 @@
 import Image from "next/image";
 import CategoryCard from "./components/CategoryCard";
 import Link from "next/link";
+import hero from '@/public/assets/home/mobile/image-header.jpg'
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-brand-lighter-gray">
-      <section className="bg-brand-dark relative overflow-hidden">
+      <section className="bg-brand-dark overflow-hiden">
         <div className="max-w-content mx-auto px-6 lg:px-40">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-0 items-center py-20 lg:py-32">
             <div className="text-center lg:text-left z-10">
@@ -29,17 +30,19 @@ export default function Home() {
               </Link>
             </div>
             <div className="relative lg:absolute lg:right-0 lg:top-0 lg:bottom-0 lg:w-1/2 flex items-center justify-center">
-              <img
-                src="https://api.builder.io/api/v1/image/assets/TEMP/2e9397b27d532a487e015502e17277027fedb940?width=2880"
+              <Image
+                src={hero}
                 alt="XX99 Mark II Headphones"
                 className="w-full h-auto max-w-md lg:max-w-none"
+              // width={0}
+              // height={100}
               />
             </div>
           </div>
         </div>
       </section>
 
-      <section className="py-20 lg:py-40 px-40">
+      <section className="py-20 lg:py-40 px-6">
         <div className="max-w-content mx-auto px-6 lg:px-0">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
             <CategoryCard
@@ -61,7 +64,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="pb-12 lg:pb-20 px-40">
+      <section className="pb-12 lg:pb-20 px-6 ">
         <div className="max-w-content mx-auto px-6 lg:px-0">
           <div className="bg-brand-orange rounded-lg overflow-hidden relative">
             <div className="absolute inset-0 opacity-20">

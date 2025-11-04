@@ -7,18 +7,20 @@ import { Button } from './ui/button';
 
 export default function Header() {
     const [isCartOpen, setIsCartOpen] = useState(false);
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     return (
         <header className="bg-brand-dark border-b border-white/10">
             <div className="max-w-content mx-auto px-6 lg:px-40">
                 <div className="flex items-center justify-between h-24">
-                    <Link href={'/'} className="flex-shrink-0">
+                    <Link href={'/'} className="shrink-0" aria-label="Audiophile home">
                         <svg
-                            width="143"
-                            height="25"
+                            className="w-28 md:w-36 lg:w-48 h-auto"
                             viewBox="0 0 143 25"
                             fill="none"
                             xmlns="http://www.w3.org/2000/svg"
+                            role="img"
+                            aria-hidden="true"
                         >
                             <path
                                 fillRule="evenodd"
@@ -56,14 +58,55 @@ export default function Header() {
                         </Link>
                     </nav>
 
-                    <Button
-                        onClick={() => setIsCartOpen(true)}
-                        className="shrink-0 hover:bg-brand-orange cursor-pointer transition-colors">
-                        <ShoppingCart className="w-6 h-6 text-white" />
-                    </Button>
+                    {/* Mobile menu button */}
+                    <div className="flex items-center gap-3 md:hidden">
+                        <button
+                            aria-label="Open menu"
+                            aria-expanded={mobileMenuOpen}
+                            onClick={() => setMobileMenuOpen(true)}
+                            className="p-2 rounded-md text-white hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/30"
+                        >
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                            </svg>
+                        </button>
+
+                        <Button
+                            onClick={() => setIsCartOpen(true)}
+                            className="shrink-0 hover:bg-brand-orange cursor-pointer transition-colors">
+                            <ShoppingCart className="w-6 h-6 text-white" />
+                        </Button>
+                    </div>
+
+                    {/* Desktop cart button */}
+                    <div className="hidden md:block">
+                        <Button
+                            onClick={() => setIsCartOpen(true)}
+                            className="shrink-0 hover:bg-brand-orange cursor-pointer transition-colors">
+                            <ShoppingCart className="w-6 h-6 text-white" />
+                        </Button>
+                    </div>
                 </div>
             </div>
             <CartModal isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
+
+            {/* Mobile menu overlay */}
+            {mobileMenuOpen && (
+                <div className="fixed inset-0 z-50">
+                    <div className="absolute inset-0 bg-black/40" onClick={() => setMobileMenuOpen(false)} />
+                    <div className="absolute right-0 top-0 w-3/4 max-w-[320px] h-full bg-brand-dark p-6">
+                        <button aria-label="Close menu" onClick={() => setMobileMenuOpen(false)} className="mb-6 text-white">
+                            Close
+                        </button>
+                        <nav className="flex flex-col gap-4">
+                            <Link onClick={() => setMobileMenuOpen(false)} href="/" className="text-white text-[15px] font-bold tracking-[2px] uppercase">Home</Link>
+                            <Link onClick={() => setMobileMenuOpen(false)} href="/headphones" className="text-white text-[15px] font-bold tracking-[2px] uppercase">Headphones</Link>
+                            <Link onClick={() => setMobileMenuOpen(false)} href="/speakers" className="text-white text-[15px] font-bold tracking-[2px] uppercase">Speakers</Link>
+                            <Link onClick={() => setMobileMenuOpen(false)} href="/earphones" className="text-white text-[15px] font-bold tracking-[2px] uppercase">Earphones</Link>
+                        </nav>
+                    </div>
+                </div>
+            )}
         </header>
     );
 }

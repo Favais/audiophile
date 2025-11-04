@@ -42,3 +42,14 @@ export const getOrders = query({
         return await ctx.db.query("orders").collect();
     },
 });
+
+// Fetch a single order by id
+export const getOrder = query({
+    // Accept a string representation of the document id and locate the order
+    args: { id: v.string() },
+    handler: async (ctx, args) => {
+        const docs = await ctx.db.query("orders").collect();
+        // Documents include an _id field; compare stringified ids
+        return docs.find((d: any) => d._id && d._id.toString() === args.id) || null;
+    },
+});

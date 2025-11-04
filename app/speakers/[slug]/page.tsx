@@ -6,7 +6,6 @@ import Image from 'next/image'
 const page = async ({ params }: { params: Promise<{ slug: string }> }) => {
     const { slug } = await params
     const product = data.data.find(item => item.slug === slug)
-    console.log(product)
 
     return (
 

@@ -7,6 +7,7 @@ import SummaryRow from "../components/SummaryRow";
 import OrderSuccessModal from "../components/OrderSuccessModal";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
+import { useRouter } from "next/navigation";
 
 interface FormData {
     name: string;
@@ -41,6 +42,9 @@ export default function Index() {
     const [errors, setErrors] = useState<FormErrors>({});
     const [touched, setTouched] = useState<{ [key: string]: boolean }>({});
     const createOrder = useMutation(api.orders.createOrder);
+    const router = useRouter();
+    const [submitting, setSubmitting] = useState(false);
+    const [formError, setFormError] = useState<string | null>(null);
 
     const orderItems = [
         {
@@ -198,6 +202,9 @@ export default function Index() {
         return Object.keys(newErrors).length === 0;
     };
     const handleSubmit = async () => {
+        if (submitting) return;
+        setSubmitting(true);
+        setFormError(null);
         const orderData = {
             customer: {
                 name: formData.name,
@@ -220,33 +227,48 @@ export default function Index() {
                 grandTotal: 5446,
             },
         };
-        console.log(orderData);
+        try {
+            console.log(orderData);
+            const response = await createOrder(orderData);
+            const orderId = response.toString();
 
-        const response = await createOrder(orderData);
-        await fetch("/api/send-email", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                email: orderData.customer.email,
-                name: orderData.customer.name,
-                orderId: response.toString(),
-                items: orderData.items,
-                totals: orderData.totals,
-                address: orderData.customer.address,
-                city: orderData.customer.city,
-                country: orderData.customer.country,
-                phone: orderData.customer.phone,
-                orderUrl: `${window.location.origin}/order/${response.toString()}`,
-            }),
-        });
-        console.log('Order created with ID:', response);
+            // Send confirmation email (best effort)
+            const mailResp = await fetch("/api/send-email", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    email: orderData.customer.email,
+                    name: orderData.customer.name,
+                    orderId: orderId,
+                    items: orderData.items,
+                    totals: orderData.totals,
+                    address: orderData.customer.address,
+                    city: orderData.customer.city,
+                    country: orderData.customer.country,
+                    phone: orderData.customer.phone,
+                    orderUrl: `${window.location.origin}/order/${orderId}`,
+                }),
+            });
+
+            if (!mailResp.ok) {
+                console.warn('Email send returned non-ok response', mailResp.status);
+            }
+
+            console.log('Order created with ID:', orderId);
+
+            // Redirect to the order confirmation page
+            router.push(`/order/${orderId}`);
+        } catch (err) {
+            console.error(err);
+            setFormError('Failed to place order. Please try again.');
+        } finally {
+            setSubmitting(false);
+        }
     };
 
-    const handlePayment = () => {
-        if (validateForm()) {
-            handleSubmit();
-            setShowSuccessModal(true);
-        }
+    const handlePayment = async () => {
+        if (!validateForm()) return;
+        await handleSubmit();
     };
 
     return (
@@ -270,7 +292,6 @@ export default function Index() {
                                     placeholder="Alexei Ward"
                                     value={formData.name}
                                     onChange={handleInputChange.bind(null, 'name')}
-                                    onBlur={() => handleBlur('name')}
                                     error={touched.name ? errors.name : ''}
                                 />
                                 <FormInput
@@ -278,7 +299,6 @@ export default function Index() {
                                     placeholder="alexei@mail.com"
                                     value={formData.email}
                                     onChange={handleInputChange.bind(null, 'email')}
-                                    onBlur={() => handleBlur('email')}
                                     error={touched.email ? errors.email : ''}
                                 />
                                 <FormInput
@@ -286,7 +306,6 @@ export default function Index() {
                                     placeholder="+1 202-555-0136"
                                     value={formData.phone}
                                     onChange={handleInputChange.bind(null, 'phone')}
-                                    onBlur={() => handleBlur('phone')}
                                     error={touched.phone ? errors.phone : ''}
                                 />
                             </div>
@@ -304,7 +323,6 @@ export default function Index() {
                                     fullWidth
                                     value={formData.address}
                                     onChange={handleInputChange.bind(null, 'address')}
-                                    onBlur={() => handleBlur('address')}
                                     error={touched.address ? errors.address : ''}
                                 />
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -313,7 +331,6 @@ export default function Index() {
                                         placeholder="10001"
                                         value={formData.zipCode}
                                         onChange={handleInputChange.bind(null, 'zipCode')}
-                                        onBlur={() => handleBlur('zipCode')}
                                         error={touched.zipCode ? errors.zipCode : ''}
                                     />
                                     <FormInput
@@ -321,7 +338,6 @@ export default function Index() {
                                         placeholder="New York"
                                         value={formData.city}
                                         onChange={handleInputChange.bind(null, 'city')}
-                                        onBlur={() => handleBlur('city')}
                                         error={touched.city ? errors.city : ''}
                                     />
                                 </div>
@@ -330,7 +346,6 @@ export default function Index() {
                                     placeholder="United States"
                                     value={formData.country}
                                     onChange={handleInputChange.bind(null, 'country')}
-                                    onBlur={() => handleBlur('country')}
                                     error={touched.country ? errors.country : ''}
                                 />
                             </div>
@@ -368,7 +383,6 @@ export default function Index() {
                                         placeholder="238521993"
                                         value={formData.eMoneyNumber}
                                         onChange={handleInputChange.bind(null, 'eMoneyNumber')}
-                                        onBlur={() => handleBlur('eMoneyNumber')}
                                         error={touched.eMoneyNumber ? errors.eMoneyNumber : ''}
                                     />
                                     <FormInput
@@ -376,7 +390,6 @@ export default function Index() {
                                         placeholder="6891"
                                         value={formData.eMoneyPin}
                                         onChange={handleInputChange.bind(null, 'eMoneyPin')}
-                                        onBlur={() => handleBlur('eMoneyPin')}
                                         error={touched.eMoneyPin ? errors.eMoneyPin : ''}
                                     />
                                 </div>
@@ -423,10 +436,12 @@ export default function Index() {
                         {/* Continue Button */}
                         <button
                             onClick={handlePayment}
-                            className="w-full bg-[#D87D4A] hover:bg-[#FBAF85] transition-colors text-white font-bold text-[13px] tracking-[1px] uppercase py-4 rounded-none"
+                            disabled={submitting}
+                            className={`w-full ${submitting ? 'opacity-60 pointer-events-none' : 'hover:bg-[#FBAF85]'} bg-[#D87D4A] transition-colors text-white font-bold text-[13px] tracking-[1px] uppercase py-4 rounded-none`}
                         >
-                            CONTINUE & PAY
+                            {submitting ? 'PROCESSING...' : 'CONTINUE & PAY'}
                         </button>
+                        {formError && <p role="alert" className="text-red-500 text-sm mt-2">{formError}</p>}
                     </div>
                 </div>
             </div>
