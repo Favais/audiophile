@@ -64,7 +64,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="pb-12 lg:pb-20 px-6 ">
+      <section className="pb-12 lg:pb-20 px-6 lg:px-40">
         <div className="max-w-content mx-auto px-6 lg:px-0">
           <div className="bg-brand-orange rounded-lg overflow-hidden relative">
             <div className="absolute inset-0 opacity-20">
@@ -115,7 +115,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="pb-12 lg:pb-20 px-40">
+      <section className="pb-12 lg:pb-20 lg:px-40 px-6">
         <div className="max-w-content mx-auto px-6 lg:px-0">
           <div className="bg-brand-light-gray rounded-lg overflow-hidden relative h-80">
             <img
@@ -138,7 +138,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="pb-20 lg:pb-40 px-40">
+      <section className="pb-20 lg:pb-40 lg:px-40 px-6">
         <div className="max-w-content mx-auto px-6 lg:px-0">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="bg-brand-light-gray rounded-lg overflow-hidden h-80">
@@ -164,7 +164,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="pb-20 lg:pb-40 px-40">
+      <section className="pb-20 lg:pb-40 lg:px-40 px-6">
         <div className="max-w-content mx-auto px-6 lg:px-0">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-32 items-center">
             <div className="order-2 lg:order-1">

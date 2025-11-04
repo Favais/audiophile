@@ -94,7 +94,7 @@ const page = () => {
             </section> */}
 
             {/* Category Cards */}
-            <section className="py-12 md:py-16 lg:py-20 px-40">
+            <section className="py-12 md:py-16 lg:py-20 px-6 lg:px-40">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-[30px]">
                     {/* Headphones */}
                     <div className="relative bg-[#F1F1F1] rounded-lg pt-[88px] pb-[22px] px-6 text-center">
@@ -159,7 +159,7 @@ const page = () => {
             </section>
 
             {/* About Section */}
-            <section className="py-12 md:py-16 lg:py-20 mb-12 px-40">
+            <section className="py-12 md:py-16 lg:py-20 mb-12 px-6 lg:px-40">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-[125px] items-center">
                     <div className="flex flex-col justify-center space-y-8 order-2 lg:order-1">
                         <h2 className="text-[28px] md:text-[32px] lg:text-[40px] font-bold leading-[1.1] tracking-[1.43px] uppercase">

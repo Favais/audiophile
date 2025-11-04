@@ -65,7 +65,7 @@ const page = async ({ params }: { params: Promise<{ slug: string }> }) => {
                     </div>
                 </div>
             </div>
-            <section className="grid gap-12 md:grid-cols-2 md:gap-16 my-20 px-40">
+            <section className="grid gap-12 md:grid-cols-2 md:gap-16 my-20 lg:px-40 px-6">
                 {/* Features */}
                 <div>
                     <h2 className="text-2xl font-bold tracking-wider uppercase mb-6">
@@ -91,7 +91,7 @@ const page = async ({ params }: { params: Promise<{ slug: string }> }) => {
                     </ul>
                 </div>
             </section>
-            <section className="grid grid-cols-3 grid-rows-2 gap-4 px-40">
+            <section className="grid grid-cols-3 grid-rows-2 gap-4 lg:px-40 px-6">
                 {/* Left top image */}
                 <Image
                     src={product?.gallery.first.desktop || ''}
@@ -120,7 +120,7 @@ const page = async ({ params }: { params: Promise<{ slug: string }> }) => {
                 />
 
             </section>
-            <section className='px-40 my-20 '>
+            <section className='lg:px-40 px-6 my-20 '>
                 <p className='text-center font-bold'>YOU MAY ALSO LIKE</p>
                 <div className='grid grid-cols-1 md:grid-cols-3 gap-8 mt-12'>
                     {product?.others.map((item: { slug: string; name: string; image: { desktop: string } }, index: number) => (

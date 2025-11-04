@@ -69,7 +69,7 @@ const page = () => {
             })}
 
 
-            <section className="py-20 lg:py-40 px-40">
+            <section className="py-20 lg:py-40 lg:px-40 px-6">
                 <div className="max-w-content mx-auto px-6 lg:px-0">
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
                         <CategoryCard
